@@ -1,11 +1,17 @@
 /**
- * @file Buffer.h
- * @brief Circular task-pointer buffer backing WorkStealingQueue.
+ * @file            Buffer.h
  *
- * Contains the fixed-size, power-of-two circular buffer that
- * WorkStealingQueue indexes into. Stores `Task*` rather than `Task` by
- * value so that growing the buffer never has to relocate a `Task`
- * object a concurrent thief might be reading — see `grow()`.
+ * @date            2026-07-25
+ *
+ * @version         2.0.0
+ *
+ * @copyright       Copyright (c) 2026 privateMwb
+ *                  All rights reserved.
+ *                  https://github.com/privateMwb/ThreadPoolPro
+ *
+ * @attention       This source is released under the MIT license
+ *                  SPDX-License-Identifier: MIT
+ *                  <http://opensource.org/licenses/MIT>
  */
 
 #pragma once
@@ -16,6 +22,12 @@
 #include <cstddef> // std::size_t
 #include <memory>  // std::unique_ptr
 // clang-format on
+
+// Circular task-pointer buffer backing WorkStealingQueue: the
+// fixed-size, power-of-two circular buffer that WorkStealingQueue
+// indexes into. Stores `Task*` rather than `Task` by value so that
+// growing the buffer never has to relocate a `Task` object a
+// concurrent thief might be reading — see `grow()`.
 
 namespace ThreadPoolPro::Detail {
 

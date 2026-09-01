@@ -1,0 +1,18 @@
+version: 2
+updates:
+  # Keep GitHub Actions pinned-SHA references up to date.
+  # Dependabot updates the SHA and refreshes the version comment automatically.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Conan is installed via pip in packaging.yml.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"

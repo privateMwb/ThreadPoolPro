@@ -1,9 +1,11 @@
-# ThreadPoolPro
+<p align="center">
+  <img src=".github/assets/banner.svg" alt="ThreadPoolPro" width="100%">
+</p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/v/release/privateMwb/ThreadPoolPro?style=for-the-badge&logo=github&color=yellow" alt="Version">
-  <img src="https://img.shields.io/badge/License-MIT-orange?style=for-the-badge" alt="License - MIT">
-  <img src="https://img.shields.io/badge/C%2B%2B-23-blue?style=for-the-badge&logo=c%2B%2B" alt="C++ - 23">
+  <img src="https://img.shields.io/github/v/release/privateMwb/ThreadPoolPro?style=for-the-badge&logo=github&color=FFC107&labelColor=0D0B05" alt="Version">
+  <img src="https://img.shields.io/badge/License-MIT-FFC107?style=for-the-badge&labelColor=0D0B05" alt="License - MIT">
+  <img src="https://img.shields.io/badge/C%2B%2B-23-FFEE58?style=for-the-badge&logo=c%2B%2B&labelColor=0D0B05" alt="C++ - 23">
 </p>
 
 <p align="center">
@@ -43,7 +45,13 @@
   <img src="https://img.shields.io/badge/AppleClang-support-000000?style=flat&logo=apple" alt="AppleClang - support">
 </p>
 
-ThreadPoolPro is a work-stealing C++ thread pool for modern C++ — lock-free per-worker Chase-Lev deques, a type-erased `Task` with small-buffer optimization instead of `std::function`'s per-instance heap allocation, and a lightweight `Future` replacing `std::packaged_task`/`std::future`'s general-purpose shared state.
+<p align="center">
+  <img src=".github/assets/divider.svg" alt="" width="100%">
+</p>
+
+<p align="center">ThreadPoolPro is a work-stealing C++ thread pool for modern C++ — lock-free per-worker Chase-Lev deques, a type-erased <code>Task</code> with small-buffer optimization instead of <code>std::function</code>'s per-instance heap allocation, and a lightweight <code>Future</code> replacing <code>std::packaged_task</code>/<code>std::future</code>'s general-purpose shared state.</p>
+
+<br>
 
 ## 📑 Table of Contents
 
@@ -59,6 +67,8 @@ ThreadPoolPro is a work-stealing C++ thread pool for modern C++ — lock-free pe
 - [Changelog](#changelog)
 - [License](#license)
 
+<br>
+
 ## <a id="features"></a>✨ Features
 
 - **Lock-free work-stealing deques** — each worker owns a Chase-Lev deque (`WorkStealingQueue`); local push/pop costs no atomic read-modify-write in the uncontended case, and idle workers steal from one another via a randomized victim offset before falling back to the injection queues, so concurrently-idle workers don't all serialize on the same low-index victim.
@@ -70,10 +80,14 @@ ThreadPoolPro is a work-stealing C++ thread pool for modern C++ — lock-free pe
 - **Pause/resume and dual shutdown modes** — `pause()`/`resume()` block new task execution without discarding queued work; `shutdown()` supports both finishing already-queued tasks (`FinishTasks`) and discarding them (`DiscardTasks`), and safely self-detaches a worker that calls `shutdown()` on its own pool from within a running task.
 - **`waitIdle()` that pitches in** — a thread blocked waiting for the pool to drain helps steal and execute tasks itself rather than sitting idle, instead of leaving the pool's own workers as the only executors.
 
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
+
 ## <a id="requirements"></a>📋 Requirements
 
 - A C++23-conformant compiler (tested: GCC, Clang, MSVC, AppleClang)
 - CMake 3.20+
+
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
 ## <a id="installation"></a>📦 Installation
 
@@ -101,6 +115,8 @@ target_link_libraries(your_target PRIVATE ThreadPoolPro::ThreadPoolPro)
 > `packaging/recipes/threadpoolpro/`, port in
 > `packaging/vcpkg/ports/threadpoolpro/`), but not yet published to the
 > public registries. This section will be updated once they are.
+
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
 ## <a id="quick-start"></a>🚀 Quick Start
 
@@ -143,6 +159,8 @@ pool.resume();
 
 pool.shutdown(rain::ThreadPool::ShutdownMode::DiscardTasks);
 ```
+
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
 ## <a id="project-structure"></a>🗂️ Project Structure
 
@@ -224,6 +242,8 @@ ThreadPoolPro/
 └── LICENSE
 ```
 
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
+
 ## <a id="development"></a>🛠️ Development
 
 The from-source install above builds the library only. To work on
@@ -257,6 +277,8 @@ auto-names its output (`regression_v1.2.0_vs_current.md`/`.json`, etc.).
 See [packaging/README.md](packaging/README.md) for notes on verifying the vcpkg
 port and Conan recipe locally.
 
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
+
 ## <a id="benchmarks"></a>📊 Benchmarks
 
 Measured against oneTBB, same build, at 10K / 100K / 1M iterations
@@ -281,11 +303,15 @@ batch sizes. The one measured exception is the caught-exception path
 under `detach()`, where ThreadPoolPro is modestly faster. Closing this
 gap is expected follow-up work, not a claim this release makes.
 
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
+
 ## <a id="documentation"></a>📖 Documentation
 
 Full API reference, generated with Doxygen from `docs/Doxyfile`:
 
 **https://privateMwb.github.io/ThreadPoolPro/**
+
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
 ## <a id="contributing"></a>🤝 Contributing
 
@@ -295,11 +321,25 @@ Issues and pull requests are welcome. Before submitting a PR:
 - If you're changing a hot path, run `./build/regression` and mention
   the results in your PR description
 
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
+
 ## <a id="changelog"></a>📝 Changelog
 
-See the [Releases](https://github.com/privateMwb/ThreadPoolPro/releases)
-page for version history and release notes.
+See [CHANGELOG.md](CHANGELOG.md) for a curated, per-release summary of
+changes, or the [Releases](https://github.com/privateMwb/ThreadPoolPro/releases)
+page for the full release notes.
+
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
 ## <a id="license"></a>📄 License
 
 MIT — see [LICENSE](LICENSE) for details.
+
+<p align="center">
+  <sub>Built with C++23</sub>
+</p>
+
+<p align="center">
+  <a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a>
+</p>
+

@@ -1,10 +1,17 @@
 /**
- * @file VTable.h
- * @brief Type-erased callable operations used by Detail::Task.
+ * @file            VTable.h
  *
- * Contains the function-pointer table and per-type factory that give
- * Detail::Task its type erasure, without the extra allocation and
- * indirection layers of `std::function`.
+ * @date            2026-07-25
+ *
+ * @version         2.0.0
+ *
+ * @copyright       Copyright (c) 2026 privateMwb
+ *                  All rights reserved.
+ *                  https://github.com/privateMwb/ThreadPoolPro
+ *
+ * @attention       This source is released under the MIT license
+ *                  SPDX-License-Identifier: MIT
+ *                  <http://opensource.org/licenses/MIT>
  */
 
 #pragma once
@@ -14,6 +21,11 @@
 #include <new>        // placement new and __STDCPP_DEFAULT_NEW_ALIGNMENT__
 #include <utility>    // std::move
 // clang-format on
+
+// Type-erased callable operations used by Detail::Task: the
+// function-pointer table and per-type factory that give Detail::Task
+// its type erasure, without the extra allocation and indirection
+// layers of `std::function`.
 
 namespace ThreadPoolPro::Detail {
 
