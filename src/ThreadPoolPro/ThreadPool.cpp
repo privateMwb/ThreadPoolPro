@@ -147,8 +147,21 @@ void ThreadPool::waitIdle() noexcept {
             break;
 
         if (auto task = fetchTaskExternal()) {
-            pendingTasks_.fetch_sub(1, std::memory_order_relaxed);
+            // Increment activeTasks_ before decrementing pendingTasks_ —
+            // not the other way around. These are two separate atomic
+            // ops, not one transaction, so *some* ordering leaves a gap
+            // where a concurrent waitIdle() poll can observe both
+            // counters mid-transition. Decrementing pendingTasks_ first
+            // opens a window where this task is reflected in neither
+            // counter — a racing waitIdle() elsewhere can see
+            // pendingTasks_ == 0 && activeTasks_ == 0 and return before
+            // this task has even started. Incrementing activeTasks_
+            // first instead means the task is briefly double-counted
+            // (present in both) rather than uncounted (present in
+            // neither); double-counting can only make waitIdle() wait
+            // slightly longer, never return early.
             activeTasks_.fetch_add(1, std::memory_order_relaxed);
+            pendingTasks_.fetch_sub(1, std::memory_order_relaxed);
 
             try {
                 (*task)();
@@ -346,8 +359,14 @@ void ThreadPool::workerLoop(std::size_t index) {
                 continue;
             }
 
-            pendingTasks_.fetch_sub(1, std::memory_order_relaxed);
+            // Increment activeTasks_ before decrementing pendingTasks_ —
+            // see the identical comment on waitIdle()'s drain-helper
+            // branch above. Reversing this order leaves a window where
+            // a task is reflected in neither counter, letting a
+            // concurrent waitIdle() observe pendingTasks_ == 0 &&
+            // activeTasks_ == 0 and return before this task has run.
             activeTasks_.fetch_add(1, std::memory_order_relaxed);
+            pendingTasks_.fetch_sub(1, std::memory_order_relaxed);
 
             bool threw = false;
 
