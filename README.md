@@ -237,7 +237,7 @@ ThreadPoolPro/
 │   └── dependabot.yml
 │
 ├── cmake/
-│   └── VectorProConfig.cmake.in
+│   └── ThreadPoolProConfig.cmake.in
 │
 ├── docs/
 │   ├── Doxyfile
