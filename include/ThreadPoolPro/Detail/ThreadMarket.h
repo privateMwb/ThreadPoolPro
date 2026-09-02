@@ -1,12 +1,23 @@
 /**
- * @file ThreadMarket.h
- * @brief Process-wide pool of persistent OS threads leased by ThreadPool.
+ * @file            ThreadMarket.h
+ *
+ * @date            2026-07-25
+ *
+ * @version         2.0.0
+ *
+ * @copyright       Copyright (c) 2026 privateMwb
+ *                  All rights reserved.
+ *                  https://github.com/privateMwb/ThreadPoolPro
+ *
+ * @attention       This source is released under the MIT license
+ *                  SPDX-License-Identifier: MIT
+ *                  <http://opensource.org/licenses/MIT>
  */
 
 #pragma once
 
 // clang-format off
-#include <ThreadPoolPro/Detail/Utility.h> // CacheLineSize
+#include "Utility.h" // CacheLineSize
 
 #include <atomic>     // std::atomic
 #include <cstddef>    // std::size_t
@@ -16,6 +27,8 @@
 #include <thread>     // std::thread
 #include <vector>     // std::vector
 // clang-format on
+
+// Process-wide pool of persistent OS threads leased by ThreadPool.
 
 namespace ThreadPoolPro::Detail {
 

@@ -1,0 +1,57 @@
+<svg width="1200" height="280" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1505"/>
+      <stop offset="100%" stop-color="#0D0B05"/>
+    </linearGradient>
+
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9971C"/>
+      <stop offset="50%" stop-color="#FFC107"/>
+      <stop offset="100%" stop-color="#FFEE58"/>
+    </linearGradient>
+
+    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9971C" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFC107" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FFEE58" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2B2410" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="fade" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#0D0B05" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0D0B05" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="280" fill="url(#bg)"/>
+  <rect width="1200" height="280" fill="url(#grid)"/>
+  <rect width="1200" height="280" fill="url(#fade)"/>
+
+  <text x="115" y="145" font-family="'Courier New', monospace" font-size="28"
+        fill="#FFC107" opacity="0.6">[</text>
+  <text x="1085" y="145" font-family="'Courier New', monospace" font-size="28"
+        fill="#FFEE58" opacity="0.6">]</text>
+
+  <text x="600" y="155" text-anchor="middle"
+        font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="64" font-weight="700" letter-spacing="3"
+        fill="url(#titleGradient)" filter="url(#glow)">ThreadPoolPro</text>
+
+  <rect x="360" y="185" width="480" height="2" fill="url(#lineGradient)"/>
+
+  <text x="600" y="220" text-anchor="middle"
+        font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="18" letter-spacing="2" fill="#BFA45C">LOCK-FREE WORK-STEALING THREAD POOL FOR C++23</text>
+</svg>

@@ -1,9 +1,17 @@
 /**
- * @file WorkStealingQueue.h
- * @brief Lock-free Chase-Lev work-stealing deque of Task pointers.
+ * @file            WorkStealingQueue.h
  *
- * Contains WorkStealingQueue, the per-worker task deque that
- * ThreadPool uses for local task storage and cross-thread stealing.
+ * @date            2026-07-25
+ *
+ * @version         2.0.0
+ *
+ * @copyright       Copyright (c) 2026 privateMwb
+ *                  All rights reserved.
+ *                  https://github.com/privateMwb/ThreadPoolPro
+ *
+ * @attention       This source is released under the MIT license
+ *                  SPDX-License-Identifier: MIT
+ *                  <http://opensource.org/licenses/MIT>
  */
 
 #pragma once
@@ -19,6 +27,10 @@
 #include <optional> // std::optional
 #include <vector>   // std::vector
 // clang-format on
+
+// Lock-free Chase-Lev work-stealing deque of Task pointers: the
+// per-worker task deque that ThreadPool uses for local task storage
+// and cross-thread stealing.
 
 namespace ThreadPoolPro::Detail {
 

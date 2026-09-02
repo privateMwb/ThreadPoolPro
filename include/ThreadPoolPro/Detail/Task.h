@@ -1,10 +1,17 @@
 /**
- * @file Task.h
- * @brief Move-only, type-erased callable wrapper with small-buffer
- * optimization.
+ * @file            Task.h
  *
- * Contains Detail::Task, the unit of work stored in
- * WorkStealingQueue and the global injection queue.
+ * @date            2026-07-25
+ *
+ * @version         2.0.0
+ *
+ * @copyright       Copyright (c) 2026 privateMwb
+ *                  All rights reserved.
+ *                  https://github.com/privateMwb/ThreadPoolPro
+ *
+ * @attention       This source is released under the MIT license
+ *                  SPDX-License-Identifier: MIT
+ *                  <http://opensource.org/licenses/MIT>
  */
 
 #pragma once
@@ -17,6 +24,10 @@
 #include <type_traits> // std::decay_t
 #include <utility>     // std::forward
 // clang-format on
+
+// Move-only, type-erased callable wrapper with small-buffer
+// optimization: the unit of work stored in WorkStealingQueue and the
+// global injection queue.
 
 namespace ThreadPoolPro::Detail {
 

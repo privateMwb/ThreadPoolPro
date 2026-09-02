@@ -85,49 +85,11 @@ template <typename F> void ThreadPool::detach(F&& f) {
 // ============================================================
 
 template <typename Predicate> void ThreadPool::waitUntil(Predicate predicate) noexcept {
-    // Phase 1 — pure spin. A parked thread's wake-up (park() -> real
-    // syscall -> scheduler re-admission) can cost low-single-digit
-    // microseconds up to low milliseconds under load, which dwarfs the
-    // cost of the small, closely-spaced tasks these pools are commonly
-    // fed (see enqueue()/detach()). Spinning here means a task that
-    // shows up moments after we went idle is picked up without ever
-    // touching the OS scheduler.
-    for (int i = 0; i < Detail::WaitSpinIterations; ++i) {
-        if (predicate())
-            return;
-
-        Detail::cpuRelax();
-    }
-
-    // Phase 2 — yield. Work still hasn't shown up; ease off pure
-    // spinning (which would otherwise just burn the core) but don't
-    // fully park yet, so a producer thread sharing this core still gets
-    // scheduled promptly.
-    for (int i = 0; i < Detail::WaitYieldIterations; ++i) {
-        if (predicate())
-            return;
-
-        std::this_thread::yield();
-    }
-
-    // Phase 3 — park. Nothing showed up after spinning and yielding;
-    // give up the core for real via the atomic wake token.
-    for (;;) {
-        if (predicate())
-            return;
-
-        // Capture the token *after* the first (failed) predicate check,
-        // then re-check once more before actually blocking. Any
-        // wakeOne()/wakeAll() that bumps the token between these two
-        // checks is guaranteed not to be missed — see the doc comment
-        // on the declaration in ThreadPool.h.
-        std::uint32_t token = wakeToken_.load(std::memory_order_acquire);
-
-        if (predicate())
-            return;
-
-        wakeToken_.wait(token, std::memory_order_acquire);
-    }
+    // Spin -> yield -> park on wakeToken_ until predicate() holds. See
+    // the doc comment on Detail::spinYieldPark() (Utility.h) for the
+    // three-phase rationale and the "never miss a concurrent notify"
+    // argument — this is shared verbatim with Detail::ResultState::wait().
+    Detail::spinYieldPark(wakeToken_, std::move(predicate));
 }
 
 } // namespace ThreadPoolPro

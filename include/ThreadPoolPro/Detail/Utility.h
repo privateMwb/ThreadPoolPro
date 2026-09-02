@@ -1,15 +1,23 @@
 /**
- * @file Utility.h
- * @brief Shared low-level constants used throughout PulseThreadPool.
+ * @file            Utility.h
  *
- * Contains the hardware cache-line size used to prevent false sharing on
- * hot atomics, and the inline storage capacity used by Detail::Task's
- * small-buffer optimization.
+ * @date            2026-07-25
+ *
+ * @version         2.0.0
+ *
+ * @copyright       Copyright (c) 2026 privateMwb
+ *                  All rights reserved.
+ *                  https://github.com/privateMwb/ThreadPoolPro
+ *
+ * @attention       This source is released under the MIT license
+ *                  SPDX-License-Identifier: MIT
+ *                  <http://opensource.org/licenses/MIT>
  */
 
 #pragma once
 
 // clang-format off
+#include <atomic>  // std::atomic — spinYieldPark()'s token parameter
 #include <cstddef> // std::size_t
 #include <new>     // std::hardware_destructive_interference_size
 #include <thread>  // std::this_thread::yield — cpuRelax()'s portable fallback
@@ -18,6 +26,12 @@
 #if defined(_MSC_VER)
 #include <intrin.h> // _mm_pause
 #endif
+
+// Shared low-level constants used throughout ThreadPoolPro: the
+// hardware cache-line size used to prevent false sharing on hot
+// atomics, the inline storage capacity used by Detail::Task's
+// small-buffer optimization, and the spin -> yield -> park wait helper
+// shared by ThreadPool::waitUntil() and Detail::ResultState.
 
 namespace ThreadPoolPro::Detail {
 
@@ -109,5 +123,72 @@ inline constexpr int WaitSpinIterations = 1000;
  * default.
  */
 inline constexpr int WaitYieldIterations = 0;
+
+/**
+ * @brief Spin -> yield -> park wait for `predicate()` to become `true`,
+ * parking (if necessary) on `token` via `std::atomic::wait()`.
+ * @tparam T `token`'s value type.
+ * @tparam Predicate Deduced callable type, invocable with no arguments
+ * and returning something contextually convertible to `bool`.
+ * @param token The atomic to park on once spinning and yielding give
+ * up. Any code path that can make `predicate()` become `true` must also
+ * change `token`'s value and call `token.notify_one()`/`notify_all()` —
+ * see `ThreadPool::wakeOne()`/`wakeAll()` and `ResultState::publish()`
+ * for the two current examples. `token` need not itself be the thing
+ * `predicate()` inspects (`ThreadPool::waitUntil()` parks on an
+ * unrelated generation counter), only something that reliably changes
+ * whenever the predicate might newly hold.
+ * @details Shared by `ThreadPool::waitUntil()` and
+ * `Detail::ResultState::wait()`, which otherwise carried identical
+ * spin/yield/park logic. Captures `token`'s value between the last two
+ * predicate checks so that a concurrent notify can never be missed: if
+ * the token changes between the checks, the second check either already
+ * observes the new state directly, or `wait()` returns immediately
+ * because the token no longer matches what was captured.
+ */
+template <typename T, typename Predicate>
+void spinYieldPark(std::atomic<T>& token, Predicate predicate) noexcept {
+    // Phase 1 — pure spin. A parked thread's wake-up (park() -> real
+    // syscall -> scheduler re-admission) can cost low-single-digit
+    // microseconds up to low milliseconds under load, which dwarfs the
+    // cost of the small, closely-spaced work items this helper guards
+    // (task submission, future completion). Spinning here means work
+    // that shows up moments after we went idle is picked up without
+    // ever touching the OS scheduler.
+    for (int i = 0; i < WaitSpinIterations; ++i) {
+        if (predicate())
+            return;
+
+        cpuRelax();
+    }
+
+    // Phase 2 — yield. Nothing showed up yet; ease off pure spinning
+    // (which would otherwise just burn the core) but don't fully park,
+    // so a producer thread sharing this core still gets scheduled
+    // promptly. Disabled by default — see WaitYieldIterations.
+    for (int i = 0; i < WaitYieldIterations; ++i) {
+        if (predicate())
+            return;
+
+        std::this_thread::yield();
+    }
+
+    // Phase 3 — park. Give up the core for real via the atomic token.
+    for (;;) {
+        if (predicate())
+            return;
+
+        // Capture the token *after* the first (failed) predicate check
+        // in this iteration, then re-check once more before actually
+        // blocking — see the doc comment above for why this makes a
+        // racing notify impossible to miss.
+        T observed = token.load(std::memory_order_acquire);
+
+        if (predicate())
+            return;
+
+        token.wait(observed, std::memory_order_acquire);
+    }
+}
 
 } // namespace ThreadPoolPro::Detail
