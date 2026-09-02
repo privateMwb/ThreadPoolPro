@@ -6,7 +6,7 @@
 # waiting for the next scheduled batch run.
 # ============================================================
 
-name: ClusterFuzzLite PR fuzzing
+name: PR Fuzzing
 
 on:
   pull_request:
