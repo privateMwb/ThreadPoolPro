@@ -36,6 +36,9 @@
   <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/packaging.yml">
     <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/packaging.yml/badge.svg" alt="Packaging">
   </a>
+  <a href="https://www.bestpractices.dev/projects/14389">
+    <img src="https://www.bestpractices.dev/projects/14389/badge" alt="OpenSSF Best Practices">
+  </a>
 </p>
 
 <p align="center">
