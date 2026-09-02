@@ -13,6 +13,18 @@ endif()
 # fall back to linking the library by name directly.
 find_package(TBB QUIET)
 
+if(NOT TARGET TBB::tbb)
+    find_library(TBB_LIB_FALLBACK NAMES tbb)
+    if(NOT TBB_LIB_FALLBACK)
+        message(FATAL_ERROR
+            "oneTBB not found (no TBB::tbb CMake package, and no 'tbb' "
+            "library on the linker search path). Install oneTBB "
+            "(e.g. 'apt-get install libtbb-dev') before configuring the "
+            "benchmark suite."
+        )
+    endif()
+endif()
+
 # Collect all benchmark suite source files.
 file(GLOB_RECURSE BENCH_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/suite/*.cpp"
