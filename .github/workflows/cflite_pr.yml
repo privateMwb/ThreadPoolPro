@@ -1,0 +1,52 @@
+# ============================================================
+# .github/workflows/cflite_pr.yml
+# Runs a short fuzz pass against fuzz_work_stealing_queue on every
+# pull request, so a change that introduces a memory-safety bug in
+# WorkStealingQueue/Buffer/Task fails CI before merge rather than
+# waiting for the next scheduled batch run.
+# ============================================================
+
+name: ClusterFuzzLite PR fuzzing
+
+on:
+  pull_request:
+    paths:
+      - "include/ThreadPoolPro/Detail/Buffer.h"
+      - "include/ThreadPoolPro/Detail/Task.h"
+      - "include/ThreadPoolPro/Detail/Task.tpp"
+      - "include/ThreadPoolPro/Detail/WorkStealingQueue.h"
+      - "src/ThreadPoolPro/Detail/Buffer.cpp"
+      - "src/ThreadPoolPro/Detail/Task.cpp"
+      - "src/ThreadPoolPro/Detail/WorkStealingQueue.cpp"
+      - "fuzz/**"
+      - ".clusterfuzzlite/**"
+
+permissions: read-all
+
+jobs:
+  PR:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer:
+          - address
+          - undefined
+    steps:
+      - name: Build Fuzzers (${{ matrix.sanitizer }})
+        id: build
+        uses: google/clusterfuzzlite/actions/build_fuzzers@v1
+        with:
+          language: c++
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sanitizer: ${{ matrix.sanitizer }}
+
+      - name: Run Fuzzers (${{ matrix.sanitizer }})
+        id: run
+        uses: google/clusterfuzzlite/actions/run_fuzzers@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fuzz-seconds: 300
+          mode: "code-change"
+          sanitizer: ${{ matrix.sanitizer }}
+          output-sarif: true
