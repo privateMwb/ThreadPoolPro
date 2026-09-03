@@ -8,7 +8,7 @@
 # reaching deep, rare interleavings in Buffer::grow()'s copy logic.
 # ============================================================
 
-name: ClusterFuzzLite batch fuzzing
+name: Batch Fuzzing
 
 on:
   schedule:
