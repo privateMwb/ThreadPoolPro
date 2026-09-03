@@ -1,0 +1,6 @@
+language: c++
+sanitizers:
+  - address
+  - undefined
+fuzzing_engines:
+  - libfuzzer

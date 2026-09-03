@@ -1,0 +1,53 @@
+# ============================================================
+# .github/workflows/cflite_batch.yml
+# Runs a longer, scheduled fuzz pass against fuzz_work_stealing_queue,
+# independent of any specific PR. This is what actually accumulates
+# fuzzing time/coverage over days and weeks rather than the short
+# per-PR budget in cflite_pr.yml — PR fuzzing catches obvious
+# regressions fast; batch fuzzing is what has a real chance of
+# reaching deep, rare interleavings in Buffer::grow()'s copy logic.
+# ============================================================
+
+name: Batch Fuzzing
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # Once a day, 03:00 UTC.
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  BatchFuzzing:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer:
+          - address
+          - undefined
+    steps:
+      - name: Build Fuzzers (${{ matrix.sanitizer }})
+        id: build
+        uses: google/clusterfuzzlite/actions/build_fuzzers@v1
+        with:
+          language: c++
+          sanitizer: ${{ matrix.sanitizer }}
+
+      - name: Run Fuzzers (${{ matrix.sanitizer }})
+        id: run
+        uses: google/clusterfuzzlite/actions/run_fuzzers@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fuzz-seconds: 3600
+          mode: "batch"
+          sanitizer: ${{ matrix.sanitizer }}
+          output-sarif: true
+          # Optional but recommended: persists the corpus and crash
+          # artifacts between runs instead of starting from scratch
+          # every night. Needs a PAT with write access to whatever
+          # repo you point this at (a small, dedicated storage repo
+          # is the usual pattern — not this repo itself).
+          # storage-repo: https://${{ secrets.FUZZ_STORAGE_TOKEN }}@github.com/privateMwb/ThreadPoolPro-fuzz-corpus.git
+          # storage-repo-branch: main
+          # storage-repo-branch-coverage: gh-pages
