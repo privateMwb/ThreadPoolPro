@@ -42,6 +42,9 @@
   <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/clang-format.yml">
     <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/clang-format.yml/badge.svg" alt="Clang Format">
   </a>
+  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/codeql.yml">
+    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/codeql.yml/badge.svg" alt="CodeQL">
+  </a>
   <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/cflite_pr.yml">
     <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/cflite_pr.yml/badge.svg" alt="Fuzzing">
   </a>
