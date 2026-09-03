@@ -9,12 +9,27 @@
 </p>
 
 <p align="center">
+  <img src=".github/assets/divider.svg" alt="" width="100%">
+</p>
+
+<p align="center"><sub><b>CI / CD</b></sub></p>
+<p align="center">
   <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/build.yml">
     <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/build.yml/badge.svg" alt="Build and Test">
   </a>
   <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/benchmark.yml">
     <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/benchmark.yml/badge.svg" alt="Benchmarks">
   </a>
+  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/packaging.yml">
+    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/packaging.yml/badge.svg" alt="Packaging">
+  </a>
+  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/release.yml">
+    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/release.yml/badge.svg" alt="Release">
+  </a>
+</p>
+
+<p align="center"><sub><b>Code Quality &amp; Safety</b></sub></p>
+<p align="center">
   <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/coverage.yml">
     <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/coverage.yml/badge.svg" alt="Coverage">
   </a>
@@ -27,20 +42,26 @@
   <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/clang-format.yml">
     <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/clang-format.yml/badge.svg" alt="Clang Format">
   </a>
-  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/docs.yml">
-    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/docs.yml/badge.svg" alt="Documentation">
-  </a>
-  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/release.yml">
-    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/release.yml/badge.svg" alt="Release">
-  </a>
-  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/packaging.yml">
-    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/packaging.yml/badge.svg" alt="Packaging">
+  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/cflite_pr.yml">
+    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/cflite_pr.yml/badge.svg" alt="Fuzzing">
   </a>
   <a href="https://www.bestpractices.dev/projects/14389">
     <img src="https://www.bestpractices.dev/projects/14389/badge" alt="OpenSSF Best Practices">
   </a>
 </p>
 
+<p align="center"><sub><b>Documentation</b></sub></p>
+<p align="center">
+  <a href="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/docs.yml">
+    <img src="https://github.com/privateMwb/ThreadPoolPro/actions/workflows/docs.yml/badge.svg" alt="Documentation">
+  </a>
+</p>
+
+<p align="center">
+  <img src=".github/assets/divider.svg" alt="" width="100%">
+</p>
+
+<p align="center"><sub><b>Compiler Support</b></sub></p>
 <p align="center">
   <img src="https://img.shields.io/badge/GCC-support-B46F1B?style=flat&logo=gnu" alt="GCC - support">
   <img src="https://img.shields.io/badge/Clang-support-045891?style=flat&logo=llvm" alt="Clang - support">
@@ -52,7 +73,7 @@
   <img src=".github/assets/divider.svg" alt="" width="100%">
 </p>
 
-<p align="center">ThreadPoolPro is a work-stealing C++ thread pool for modern C++ — lock-free per-worker Chase-Lev deques, a type-erased <code>Task</code> with small-buffer optimization instead of <code>std::function</code>'s per-instance heap allocation, and a lightweight <code>Future</code> replacing <code>std::packaged_task</code>/<code>std::future</code>'s general-purpose shared state.</p>
+<p align="center">ThreadPoolPro is a work-stealing C++ thread pool for modern C++. It uses lock-free per-worker Chase-Lev deques, a type-erased <code>Task</code> with small-buffer optimization instead of <code>std::function</code>'s per-instance heap allocation, and a lightweight <code>Future</code> replacing <code>std::packaged_task</code>/<code>std::future</code>'s general-purpose shared state.</p>
 
 <br>
 
@@ -65,6 +86,7 @@
 - [Project Structure](#project-structure)
 - [Development](#development)
 - [Benchmarks](#benchmarks)
+- [Fuzzing](#fuzzing)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
@@ -220,6 +242,14 @@ ThreadPoolPro/
 │   ├── CMakeLists.txt
 │   └── README.md
 │
+├── fuzz/
+│   └── work_stealing_queue.cpp
+│
+├── .clusterfuzzlite/
+│   ├── Dockerfile
+│   ├── build.sh
+│   └── project.yaml
+│
 ├── packaging/
 │   ├── README.md
 │   ├── recipes/
@@ -251,6 +281,7 @@ ThreadPoolPro/
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
 ├── SECURITY.md
+├── FUZZING.md
 └── LICENSE
 ```
 
@@ -287,7 +318,8 @@ correctly outranks `v1.9.0`), not alphabetical filename order, and
 auto-names its output (`regression_v1.2.0_vs_current.md`/`.json`, etc.).
 
 See [packaging/README.md](packaging/README.md) for notes on verifying the vcpkg
-port and Conan recipe locally.
+port and Conan recipe locally, and [FUZZING.md](FUZZING.md) for running the
+fuzz harness locally.
 
 <div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
@@ -314,6 +346,20 @@ comparison, sometimes substantially so at higher worker counts and
 batch sizes. The one measured exception is the caught-exception path
 under `detach()`, where ThreadPoolPro is modestly faster. Closing this
 gap is expected follow-up work, not a claim this release makes.
+
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
+
+## <a id="fuzzing"></a>🐛 Fuzzing
+
+`WorkStealingQueue`'s owner-thread API (`pushBottom()`/`popBottom()`)
+is continuously fuzzed via [ClusterFuzzLite](https://google.github.io/clusterfuzzlite/):
+random push/pop sequences checked against a shadow model, under
+AddressSanitizer and UndefinedBehaviorSanitizer. A short pass runs on
+every PR touching the queue's source; a longer pass runs nightly.
+
+This currently covers single-threaded correctness and memory safety,
+not the concurrent `steal()` path — see [FUZZING.md](FUZZING.md) for
+scope, running locally, and reproducing a failing input.
 
 <div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
