@@ -19,7 +19,7 @@ FetchContent_MakeAvailable(nlohmann_json)
 
 # Build the google_regressions executable.
 add_executable(
-    google_regressions
+    google_regression
     ${CMAKE_CURRENT_SOURCE_DIR}/regression_main.cpp
 )
 
@@ -27,7 +27,7 @@ add_executable(
 # "support/framework.h"), and reach into benchmarks/ and include/ for
 # the headers this tool shares with the benchmark suite.
 target_include_directories(
-    google_regressions
+    google_regression
     PRIVATE
         ${CMAKE_SOURCE_DIR}/benchmarks
         ${CMAKE_SOURCE_DIR}
@@ -36,7 +36,7 @@ target_include_directories(
 
 # Link nlohmann_json to the google_regressions executable.
 target_link_libraries(
-    google_regressions
+    google_regression
     PRIVATE
         nlohmann_json::nlohmann_json
 )
