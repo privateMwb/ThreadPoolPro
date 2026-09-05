@@ -100,7 +100,7 @@ jobs:
 
       - name: Run google regression tool
         continue-on-error: true
-        run: ./build/google_regressions
+        run: ./build/google_regression
 
       - name: Determine version
         id: version
