@@ -255,6 +255,7 @@ ThreadPoolPro/
 │
 ├── packaging/
 │   ├── README.md
+│   ├── requirements-conan.txt
 │   ├── recipes/
 │   ├── vcpkg/
 │   └── vcpkg-smoke-test/
