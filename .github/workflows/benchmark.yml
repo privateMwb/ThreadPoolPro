@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # need full history + tags so we can auto-detect the latest tag below
 
       - name: Install dependencies
         run: |
@@ -106,10 +108,16 @@ jobs:
         id: version
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
-            echo "version=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+            VERSION="${{ github.ref_name }}"
+          elif [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
           else
-            echo "version=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+            # No version typed in for a manual run -- fall back to the
+            # most recent tag reachable from this commit (by creation
+            # order, not just alphabetically/semver, via creatordate).
+            VERSION="$(git tag --sort=-creatordate | head -n 1)"
           fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Save baseline snapshots
         if: steps.version.outputs.version != ''
@@ -141,17 +149,17 @@ jobs:
           # it locally if a stale local ref happens to exist.
           git checkout -B "$BRANCH"
 
-          mkdir -p benchmarks/baselines
-          cp /tmp/baseline-results/benchmark_results.json "benchmarks/baselines/${{ steps.version.outputs.version }}.json"
-          cp /tmp/baseline-results/benchmark_results.md "benchmarks/baselines/${{ steps.version.outputs.version }}.md"
-          cp /tmp/baseline-results/google_benchmark_results.json "benchmarks/baselines/g${{ steps.version.outputs.version }}.json"
-          cp /tmp/baseline-results/google_benchmark_results.md "benchmarks/baselines/g${{ steps.version.outputs.version }}.md"
+          mkdir -p benchmarks/baselines/${{ steps.version.outputs.version }}
+          cp /tmp/baseline-results/benchmark_results.json "benchmarks/baselines/${{ steps.version.outputs.version }}/${{ steps.version.outputs.version }}.json"
+          cp /tmp/baseline-results/benchmark_results.md "benchmarks/baselines/${{ steps.version.outputs.version }}/${{ steps.version.outputs.version }}.md"
+          cp /tmp/baseline-results/google_benchmark_results.json "benchmarks/baselines/${{ steps.version.outputs.version }}/g${{ steps.version.outputs.version }}.json"
+          cp /tmp/baseline-results/google_benchmark_results.md "benchmarks/baselines/${{ steps.version.outputs.version }}/g${{ steps.version.outputs.version }}.md"
 
           git add \
-            "benchmarks/baselines/${{ steps.version.outputs.version }}.json" \
-            "benchmarks/baselines/${{ steps.version.outputs.version }}.md" \
-            "benchmarks/baselines/g${{ steps.version.outputs.version }}.json" \
-            "benchmarks/baselines/g${{ steps.version.outputs.version }}.md"
+            "benchmarks/baselines/${{ steps.version.outputs.version }}/${{ steps.version.outputs.version }}.json" \
+            "benchmarks/baselines/${{ steps.version.outputs.version }}/${{ steps.version.outputs.version }}.md" \
+            "benchmarks/baselines/${{ steps.version.outputs.version }}/g${{ steps.version.outputs.version }}.json" \
+            "benchmarks/baselines/${{ steps.version.outputs.version }}/g${{ steps.version.outputs.version }}.md"
 
           if git diff --staged --quiet; then
             echo "No baseline changes to commit."

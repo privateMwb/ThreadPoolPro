@@ -31,7 +31,7 @@ static void BM_enqueue_result_ptp(benchmark::State& state) {
         benchmark::DoNotOptimize(future.get());
     }
 }
-BENCHMARK(BM_enqueue_result_ptp)->Name("enqueue + result (PulseThreadPool)")->UseRealTime();
+BENCHMARK(BM_enqueue_result_ptp)->Name("enqueue (PTP)")->UseRealTime();
 
 static void BM_enqueue_result_otbb(benchmark::State& state) {
     tbb::task_arena arena(kWorkers);
@@ -45,4 +45,4 @@ static void BM_enqueue_result_otbb(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_enqueue_result_otbb)->Name("enqueue + result (oneTBB)")->UseRealTime();
+BENCHMARK(BM_enqueue_result_otbb)->Name("enqueue (TBB)")->UseRealTime();

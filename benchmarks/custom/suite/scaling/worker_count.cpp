@@ -47,7 +47,6 @@ static void bench_at_worker_count(int workers) {
 static void run_benchmarks() {
     for (int workers : {1, 2, 4, 8, 16, 32}) {
         bench_at_worker_count(workers);
-        std::cout << "\n";
     }
 }
 

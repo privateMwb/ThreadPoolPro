@@ -36,7 +36,7 @@ static void BM_push_at_backlog(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_push_at_backlog)
-    ->Name("pushBottom at backlog")
+    ->Name("push@backlog")
     ->Arg(0)
     ->Arg(1024)
     ->Arg(65536)

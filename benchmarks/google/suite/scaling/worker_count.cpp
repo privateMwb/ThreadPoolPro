@@ -35,7 +35,7 @@ static void BM_worker_count_ptp(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_worker_count_ptp)
-    ->Name("worker count sweep (PulseThreadPool)")
+    ->Name("workers (PTP)")
     ->Arg(1)
     ->Arg(2)
     ->Arg(4)
@@ -60,7 +60,7 @@ static void BM_worker_count_otbb(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_worker_count_otbb)
-    ->Name("worker count sweep (oneTBB)")
+    ->Name("workers (TBB)")
     ->Arg(1)
     ->Arg(2)
     ->Arg(4)

@@ -47,7 +47,7 @@ static void BM_uncaught_exception(benchmark::State& state) {
     pool.waitIdle();
     benchmark::DoNotOptimize(pool.exceptionCount());
 }
-BENCHMARK(BM_uncaught_exception)->Name("detach (uncaught exception)")->UseRealTime();
+BENCHMARK(BM_uncaught_exception)->Name("detach uncaught")->UseRealTime();
 
 // Measures throw-and-catch cost per task, with both sides swallowing
 // the exception inside the task itself so all N tasks genuinely run on
@@ -69,9 +69,7 @@ static void BM_caught_exception_ptp(benchmark::State& state) {
     pool.waitIdle();
     benchmark::DoNotOptimize(counter.load());
 }
-BENCHMARK(BM_caught_exception_ptp)
-    ->Name("detach (caught exception) (PulseThreadPool)")
-    ->UseRealTime();
+BENCHMARK(BM_caught_exception_ptp)->Name("detach caught (PTP)")->UseRealTime();
 
 static void BM_caught_exception_otbb(benchmark::State& state) {
     tbb::task_arena arena(kWorkers);
@@ -94,4 +92,4 @@ static void BM_caught_exception_otbb(benchmark::State& state) {
     arena.execute([&] { tg.wait(); });
     benchmark::DoNotOptimize(counter.load());
 }
-BENCHMARK(BM_caught_exception_otbb)->Name("detach (caught exception) (oneTBB)")->UseRealTime();
+BENCHMARK(BM_caught_exception_otbb)->Name("detach caught (TBB)")->UseRealTime();

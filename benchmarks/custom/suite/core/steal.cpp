@@ -27,7 +27,7 @@ static void bench_push_pop_uncontended() {
         doNotOptimize(task.has_value());
     };
 
-    BENCH_SOLO("pushBottom + popBottom (uncontended)", ptp);
+    BENCH_SOLO("push/pop, uncontended", ptp);
 }
 
 // Measures pushBottom() while a second thread continuously steals —
@@ -48,7 +48,7 @@ static void bench_steal_contended() {
 
     auto ptp = [&] { queue.pushBottom(Task([] {})); };
 
-    BENCH_SOLO("pushBottom (contended by steal)", ptp);
+    BENCH_SOLO("push, contended", ptp);
 
     stop.store(true, std::memory_order_relaxed);
     thief.join();
@@ -58,8 +58,6 @@ static void bench_steal_contended() {
 // Executes all queue-primitive benchmark cases.
 static void run_benchmarks() {
     bench_push_pop_uncontended();
-    std::cout << "\n";
-
     bench_steal_contended();
 }
 

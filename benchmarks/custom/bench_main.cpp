@@ -1,7 +1,7 @@
 // clang-format off
 #include "support/framework.h"  // setProjectLabels()
                                 // printAllBenchSuite(), printBenchSuiteList(), printOneSuite()
-                                // bench_registry(), prettify(), toLower()
+                                // printUsage(), bench_registry(), prettify(), toLower()
                                 // exportJson(), exportMarkdown()
 
 #include <iomanip>              // std::setw
@@ -17,6 +17,11 @@ int main(int argc, char* argv[]) {
     }
 
     std::string_view requested = argv[1];
+
+    if (requested == "-h" || requested == "--help") {
+        printUsage();
+        return 0;
+    }
 
     if (requested == "list") {
         printBenchSuiteList();
@@ -35,6 +40,7 @@ int main(int argc, char* argv[]) {
         // Exact suite match (by name or id): run just this one and exit.
         if (nameLower == requestedLower || idLower == requestedLower) {
             printOneSuite(suite);
+            printSummary();
 
             exportJson("benchmark_results.json");
             exportMarkdown("benchmark_results.md");
@@ -50,6 +56,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (foundCategory) {
+        printSummary();
         exportJson("benchmark_results.json");
         exportMarkdown("benchmark_results.md");
         return 0;

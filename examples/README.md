@@ -19,20 +19,60 @@ This produces a single `examples` executable under `build/`.
 
 ## Usage
 
-Run every registered example, then print pass/fail stats:
+Run every registered example in order, each under its own boxed
+header, then print a timed run summary:
 
 ```
 ./build/examples
 ```
 
-List all examples, grouped by category — useful when you don't
-remember an example's id or exact file name:
+```
+┌─ [Q1] Basic Behavior
+│  quickstart
+└─────────────────────
+Creating a vector with 3 elements...
+Pushing 4th element...
+Size is now 4
+
+┌─ [Q2] Custom Allocator
+│  quickstart
+└───────────────────────
+Allocating from arena...
+
+┌──────────────────┐
+│ Examples       2 │
+│ Categories     1 │
+│ Time       0.4ms │
+└──────────────────┘
+```
+
+Running a single example by id or name skips the summary box — it's
+only useful once more than one example ran together (a full run, or a
+whole category).
+
+List all examples, grouped by category as a tree — useful when you
+don't remember an example's id or exact file name:
 
 ```
 ./build/examples list
 ```
 
-Run every example in one category, e.g. everything under `quickstart`:
+```
+Available example suites
+
+Quickstart (2)
+├─ [Q1]  Basic Behavior
+└─ [Q2]  Custom Allocator
+
+┌──────────────┐
+│ Suites     2 │
+│ Categories 1 │
+└──────────────┘
+```
+
+Run every example in one category, e.g. everything under `quickstart`
+— same boxed-header-per-example output as a full run, with a summary
+box at the end:
 
 ```
 ./build/examples quickstart
@@ -48,6 +88,25 @@ Run a single example by its file name instead of its id:
 
 ```
 ./build/examples basic_behavior
+```
+
+Show the full command reference:
+
+```
+./build/examples -h
+./build/examples --help
+```
+
+```
+Usage:
+  examples               run every example in order
+  examples list          list all examples, grouped by category
+  examples <category>    run every example in a category, e.g. quickstart
+  examples <id>          run a single example by id, e.g. Q1
+  examples <name>        run a single example by file name, e.g. basic_behavior
+  examples -h | --help   show this help message
+
+Matching is case-insensitive.
 ```
 
 Matching is case-insensitive. Category and file-name arguments are

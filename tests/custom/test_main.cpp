@@ -13,6 +13,12 @@ int main(int argc, char* argv[]) {
 
     std::string_view requested = argv[1];
 
+    // "-h" / "--help": print usage and exit.
+    if (requested == "-h" || requested == "--help") {
+        printUsage();
+        return 0;
+    }
+
     // "list": print every registered suite, grouped by category, no run.
     if (requested == "list") {
         printTestSuiteList();
@@ -22,6 +28,7 @@ int main(int argc, char* argv[]) {
     // Otherwise: run whichever suite(s) match the requested name, id, or category.
     const std::string requestedLower = toLower(prettify(requested));
     bool foundCategory = false;
+    double elapsedMs = 0.0;
 
     for (const auto& suite : test_registry()) {
         const std::string nameLower = toLower(suite.name);
@@ -30,8 +37,8 @@ int main(int argc, char* argv[]) {
 
         // Exact suite match (by name or id): run just this one and exit.
         if (nameLower == requestedLower || idLower == requestedLower) {
-            printOneSuite(suite);
-            stats();
+            elapsedMs = printOneSuite(suite);
+            stats(elapsedMs);
             std::cout << "\n";
             return 0;
         }
@@ -39,12 +46,12 @@ int main(int argc, char* argv[]) {
         // Category match: run every suite in it, keep scanning for more.
         if (categoryLower == requestedLower) {
             foundCategory = true;
-            printOneSuite(suite);
+            elapsedMs += printOneSuite(suite);
         }
     }
 
     if (foundCategory) {
-        stats();
+        stats(elapsedMs);
         return 0;
     }
 

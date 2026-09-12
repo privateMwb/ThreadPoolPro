@@ -57,11 +57,7 @@ static void bench_bool_state() {
 // Executes all state-query benchmark cases.
 static void run_benchmarks() {
     bench_task_counts();
-    std::cout << "\n";
-
     bench_idle_count();
-    std::cout << "\n";
-
     bench_bool_state();
 }
 
