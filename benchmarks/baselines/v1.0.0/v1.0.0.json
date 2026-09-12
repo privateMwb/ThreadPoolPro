@@ -2,526 +2,526 @@
   {
     "suite": "Invoke",
     "operation": "invoke small (SBO)",
-    "total_ns": 81770,
+    "total_ns": 17736,
     "iterations": 10000,
-    "ns_per_op": 8.18
+    "ns_per_op": 1.77
   },
   {
     "suite": "Invoke",
     "operation": "invoke small (SBO)",
-    "total_ns": 863692,
+    "total_ns": 235119,
     "iterations": 100000,
-    "ns_per_op": 8.64
+    "ns_per_op": 2.35
   },
   {
     "suite": "Invoke",
     "operation": "invoke small (SBO)",
-    "total_ns": 8107384,
+    "total_ns": 2116375,
     "iterations": 1000000,
-    "ns_per_op": 8.11
+    "ns_per_op": 2.12
   },
   {
     "suite": "Invoke",
     "operation": "invoke large (heap)",
-    "total_ns": 81846,
+    "total_ns": 27931,
     "iterations": 10000,
-    "ns_per_op": 8.18
+    "ns_per_op": 2.79
   },
   {
     "suite": "Invoke",
     "operation": "invoke large (heap)",
-    "total_ns": 821231,
+    "total_ns": 278733,
     "iterations": 100000,
-    "ns_per_op": 8.21
+    "ns_per_op": 2.79
   },
   {
     "suite": "Invoke",
     "operation": "invoke large (heap)",
-    "total_ns": 10094538,
+    "total_ns": 2820809,
     "iterations": 1000000,
-    "ns_per_op": 10.09
+    "ns_per_op": 2.82
   },
   {
     "suite": "State Query",
     "operation": "active/queued counts",
-    "total_ns": 39384,
+    "total_ns": 32108,
     "iterations": 10000,
-    "ns_per_op": 3.94
+    "ns_per_op": 3.21
   },
   {
     "suite": "State Query",
     "operation": "active/queued counts",
-    "total_ns": 333462,
+    "total_ns": 313565,
     "iterations": 100000,
-    "ns_per_op": 3.33
+    "ns_per_op": 3.14
   },
   {
     "suite": "State Query",
     "operation": "active/queued counts",
-    "total_ns": 3368000,
+    "total_ns": 3182856,
     "iterations": 1000000,
-    "ns_per_op": 3.37
+    "ns_per_op": 3.18
   },
   {
     "suite": "State Query",
     "operation": "idle thread count",
-    "total_ns": 31307,
+    "total_ns": 19509,
     "iterations": 10000,
-    "ns_per_op": 3.13
+    "ns_per_op": 1.95
   },
   {
     "suite": "State Query",
     "operation": "idle thread count",
-    "total_ns": 310077,
+    "total_ns": 203301,
     "iterations": 100000,
-    "ns_per_op": 3.10
+    "ns_per_op": 2.03
   },
   {
     "suite": "State Query",
     "operation": "idle thread count",
-    "total_ns": 3444616,
+    "total_ns": 1755240,
     "iterations": 1000000,
-    "ns_per_op": 3.44
+    "ns_per_op": 1.76
   },
   {
     "suite": "State Query",
     "operation": "paused/stopped/empty",
-    "total_ns": 170538,
+    "total_ns": 65227,
     "iterations": 10000,
-    "ns_per_op": 17.05
+    "ns_per_op": 6.52
   },
   {
     "suite": "State Query",
     "operation": "paused/stopped/empty",
-    "total_ns": 2201847,
+    "total_ns": 493280,
     "iterations": 100000,
-    "ns_per_op": 22.02
+    "ns_per_op": 4.93
   },
   {
     "suite": "State Query",
     "operation": "paused/stopped/empty",
-    "total_ns": 15947307,
+    "total_ns": 4935341,
     "iterations": 1000000,
-    "ns_per_op": 15.95
+    "ns_per_op": 4.94
   },
   {
     "suite": "Detach",
     "operation": "detach single task",
-    "total_ns": 15905230,
+    "total_ns": 10101661,
     "iterations": 10000,
-    "ns_per_op": 1590.52
+    "ns_per_op": 1010.17
   },
   {
     "suite": "Detach",
     "operation": "detach single task",
-    "total_ns": 94421462,
+    "total_ns": 76681881,
     "iterations": 100000,
-    "ns_per_op": 944.21
+    "ns_per_op": 766.82
   },
   {
     "suite": "Detach",
     "operation": "detach single task",
-    "total_ns": 622854231,
+    "total_ns": 426553218,
     "iterations": 1000000,
-    "ns_per_op": 622.85
+    "ns_per_op": 426.55
   },
   {
     "suite": "Detach",
     "operation": "detach batch (64)",
-    "total_ns": 1795341846,
+    "total_ns": 658700962,
     "iterations": 10000,
-    "ns_per_op": 179534.18
+    "ns_per_op": 65870.10
   },
   {
     "suite": "Detach",
     "operation": "detach batch (64)",
-    "total_ns": 8072411462,
+    "total_ns": 6132636034,
     "iterations": 100000,
-    "ns_per_op": 80724.11
+    "ns_per_op": 61326.36
   },
   {
     "suite": "Detach",
     "operation": "detach batch (64)",
-    "total_ns": 81466591082,
+    "total_ns": 59705076488,
     "iterations": 1000000,
-    "ns_per_op": 81466.59
+    "ns_per_op": 59705.08
   },
   {
     "suite": "Enqueue",
     "operation": "enqueue + result",
-    "total_ns": 34195923,
+    "total_ns": 11687732,
     "iterations": 10000,
-    "ns_per_op": 3419.59
+    "ns_per_op": 1168.77
   },
   {
     "suite": "Enqueue",
     "operation": "enqueue + result",
-    "total_ns": 380783692,
+    "total_ns": 118440824,
     "iterations": 100000,
-    "ns_per_op": 3807.84
+    "ns_per_op": 1184.41
   },
   {
     "suite": "Enqueue",
     "operation": "enqueue + result",
-    "total_ns": 3196487923,
+    "total_ns": 1166667551,
     "iterations": 1000000,
-    "ns_per_op": 3196.49
+    "ns_per_op": 1166.67
   },
   {
     "suite": "Steal",
     "operation": "push/pop, uncontended",
-    "total_ns": 908230,
+    "total_ns": 361956,
     "iterations": 10000,
-    "ns_per_op": 90.82
+    "ns_per_op": 36.20
   },
   {
     "suite": "Steal",
     "operation": "push/pop, uncontended",
-    "total_ns": 9143384,
+    "total_ns": 3045533,
     "iterations": 100000,
-    "ns_per_op": 91.43
+    "ns_per_op": 30.46
   },
   {
     "suite": "Steal",
     "operation": "push/pop, uncontended",
-    "total_ns": 93855693,
+    "total_ns": 30076545,
     "iterations": 1000000,
-    "ns_per_op": 93.86
+    "ns_per_op": 30.08
   },
   {
     "suite": "Steal",
     "operation": "push, contended",
-    "total_ns": 2560615,
+    "total_ns": 1305044,
     "iterations": 10000,
-    "ns_per_op": 256.06
+    "ns_per_op": 130.50
   },
   {
     "suite": "Steal",
     "operation": "push, contended",
-    "total_ns": 30667385,
+    "total_ns": 14488413,
     "iterations": 100000,
-    "ns_per_op": 306.67
+    "ns_per_op": 144.88
   },
   {
     "suite": "Steal",
     "operation": "push, contended",
-    "total_ns": 356253846,
+    "total_ns": 133322890,
     "iterations": 1000000,
-    "ns_per_op": 356.25
+    "ns_per_op": 133.32
   },
   {
     "suite": "Construct Destroy",
     "operation": "construct + destroy",
-    "total_ns": 2255513154,
+    "total_ns": 147887140,
     "iterations": 10000,
-    "ns_per_op": 225551.32
+    "ns_per_op": 14788.71
   },
   {
     "suite": "Construct Destroy",
     "operation": "construct + destroy",
-    "total_ns": 20841842155,
+    "total_ns": 1430971105,
     "iterations": 100000,
-    "ns_per_op": 208418.42
+    "ns_per_op": 14309.71
   },
   {
     "suite": "Construct Destroy",
     "operation": "construct + destroy",
-    "total_ns": 220465425244,
+    "total_ns": 13732669509,
     "iterations": 1000000,
-    "ns_per_op": 220465.43
+    "ns_per_op": 13732.67
   },
   {
     "suite": "Move Semantics",
     "operation": "move construct (SBO)",
-    "total_ns": 209000,
+    "total_ns": 87529,
     "iterations": 10000,
-    "ns_per_op": 20.90
+    "ns_per_op": 8.75
   },
   {
     "suite": "Move Semantics",
     "operation": "move construct (SBO)",
-    "total_ns": 2144308,
+    "total_ns": 958461,
     "iterations": 100000,
-    "ns_per_op": 21.44
+    "ns_per_op": 9.58
   },
   {
     "suite": "Move Semantics",
     "operation": "move construct (SBO)",
-    "total_ns": 21186770,
+    "total_ns": 9293793,
     "iterations": 1000000,
-    "ns_per_op": 21.19
+    "ns_per_op": 9.29
   },
   {
     "suite": "Move Semantics",
     "operation": "move construct (heap)",
-    "total_ns": 4003462,
+    "total_ns": 181419,
     "iterations": 10000,
-    "ns_per_op": 400.35
+    "ns_per_op": 18.14
   },
   {
     "suite": "Move Semantics",
     "operation": "move construct (heap)",
-    "total_ns": 18408846,
+    "total_ns": 1796182,
     "iterations": 100000,
-    "ns_per_op": 184.09
+    "ns_per_op": 17.96
   },
   {
     "suite": "Move Semantics",
     "operation": "move construct (heap)",
-    "total_ns": 240518154,
+    "total_ns": 17932755,
     "iterations": 1000000,
-    "ns_per_op": 240.52
+    "ns_per_op": 17.93
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 0",
-    "total_ns": 2179461,
+    "total_ns": 480271,
     "iterations": 10000,
-    "ns_per_op": 217.95
+    "ns_per_op": 48.03
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 0",
-    "total_ns": 21812846,
+    "total_ns": 8943293,
     "iterations": 100000,
-    "ns_per_op": 218.13
+    "ns_per_op": 89.43
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 0",
-    "total_ns": 232218462,
+    "total_ns": 74865026,
     "iterations": 1000000,
-    "ns_per_op": 232.22
+    "ns_per_op": 74.87
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 1024",
-    "total_ns": 2086538,
+    "total_ns": 284241,
     "iterations": 10000,
-    "ns_per_op": 208.65
+    "ns_per_op": 28.42
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 1024",
-    "total_ns": 21060230,
+    "total_ns": 2831506,
     "iterations": 100000,
-    "ns_per_op": 210.60
+    "ns_per_op": 28.32
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 1024",
-    "total_ns": 236688307,
+    "total_ns": 36969958,
     "iterations": 1000000,
-    "ns_per_op": 236.69
+    "ns_per_op": 36.97
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 65536",
-    "total_ns": 2250077,
+    "total_ns": 358411,
     "iterations": 10000,
-    "ns_per_op": 225.01
+    "ns_per_op": 35.84
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 65536",
-    "total_ns": 21281846,
+    "total_ns": 2712470,
     "iterations": 100000,
-    "ns_per_op": 212.82
+    "ns_per_op": 27.12
   },
   {
     "suite": "Queue Depth",
     "operation": "push at 65536",
-    "total_ns": 224298077,
+    "total_ns": 30788146,
     "iterations": 1000000,
-    "ns_per_op": 224.30
+    "ns_per_op": 30.79
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 1",
-    "total_ns": 382384,
+    "total_ns": 72087,
     "iterations": 1,
-    "ns_per_op": 382384.00
+    "ns_per_op": 72087.00
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 1",
-    "total_ns": 3591000,
+    "total_ns": 817311,
     "iterations": 10,
-    "ns_per_op": 359100.00
+    "ns_per_op": 81731.10
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 1",
-    "total_ns": 23377847,
+    "total_ns": 12967847,
     "iterations": 100,
-    "ns_per_op": 233778.47
+    "ns_per_op": 129678.47
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 2",
-    "total_ns": 280846,
+    "total_ns": 69363,
     "iterations": 1,
-    "ns_per_op": 280846.00
+    "ns_per_op": 69363.00
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 2",
-    "total_ns": 3716000,
+    "total_ns": 758173,
     "iterations": 10,
-    "ns_per_op": 371600.00
+    "ns_per_op": 75817.30
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 2",
-    "total_ns": 26405230,
+    "total_ns": 7246870,
     "iterations": 100,
-    "ns_per_op": 264052.30
+    "ns_per_op": 72468.70
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 4",
-    "total_ns": 1419385,
+    "total_ns": 93879,
     "iterations": 1,
-    "ns_per_op": 1419385.00
+    "ns_per_op": 93879.00
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 4",
-    "total_ns": 3671461,
+    "total_ns": 5568352,
     "iterations": 10,
-    "ns_per_op": 367146.10
+    "ns_per_op": 556835.20
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 4",
-    "total_ns": 46833846,
+    "total_ns": 23381601,
     "iterations": 100,
-    "ns_per_op": 468338.46
+    "ns_per_op": 233816.01
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 8",
-    "total_ns": 11484231,
+    "total_ns": 338471,
     "iterations": 1,
-    "ns_per_op": 11484231.00
+    "ns_per_op": 338471.00
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 8",
-    "total_ns": 7036307,
+    "total_ns": 4629150,
     "iterations": 10,
-    "ns_per_op": 703630.70
+    "ns_per_op": 462915.00
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 8",
-    "total_ns": 76013847,
+    "total_ns": 93563757,
     "iterations": 100,
-    "ns_per_op": 760138.47
+    "ns_per_op": 935637.57
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 16",
-    "total_ns": 2567770,
+    "total_ns": 212214,
     "iterations": 1,
-    "ns_per_op": 2567770.00
+    "ns_per_op": 212214.00
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 16",
-    "total_ns": 6231000,
+    "total_ns": 28871486,
     "iterations": 10,
-    "ns_per_op": 623100.00
+    "ns_per_op": 2887148.60
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 16",
-    "total_ns": 55254385,
+    "total_ns": 61320739,
     "iterations": 100,
-    "ns_per_op": 552543.85
+    "ns_per_op": 613207.39
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 32",
-    "total_ns": 1106769,
+    "total_ns": 277992,
     "iterations": 1,
-    "ns_per_op": 1106769.00
+    "ns_per_op": 277992.00
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 32",
-    "total_ns": 7214770,
+    "total_ns": 15552578,
     "iterations": 10,
-    "ns_per_op": 721477.00
+    "ns_per_op": 1555257.80
   },
   {
     "suite": "Worker Count",
     "operation": "worker count 32",
-    "total_ns": 69852308,
+    "total_ns": 32836842,
     "iterations": 100,
-    "ns_per_op": 698523.08
+    "ns_per_op": 328368.42
   },
   {
     "suite": "Exception Path",
     "operation": "detach, uncaught",
-    "total_ns": 2921924,
+    "total_ns": 546680,
     "iterations": 10000,
-    "ns_per_op": 292.19
+    "ns_per_op": 54.67
   },
   {
     "suite": "Exception Path",
     "operation": "detach, uncaught",
-    "total_ns": 28108923,
+    "total_ns": 12588987,
     "iterations": 100000,
-    "ns_per_op": 281.09
+    "ns_per_op": 125.89
   },
   {
     "suite": "Exception Path",
     "operation": "detach, uncaught",
-    "total_ns": 397735616,
+    "total_ns": 154152535,
     "iterations": 1000000,
-    "ns_per_op": 397.74
+    "ns_per_op": 154.15
   },
   {
     "suite": "Exception Path",
     "operation": "detach, caught",
-    "total_ns": 4933539,
+    "total_ns": 3566055,
     "iterations": 10000,
-    "ns_per_op": 493.35
+    "ns_per_op": 356.61
   },
   {
     "suite": "Exception Path",
     "operation": "detach, caught",
-    "total_ns": 45864231,
+    "total_ns": 22663366,
     "iterations": 100000,
-    "ns_per_op": 458.64
+    "ns_per_op": 226.63
   },
   {
     "suite": "Exception Path",
     "operation": "detach, caught",
-    "total_ns": 331453307,
+    "total_ns": 183187088,
     "iterations": 1000000,
-    "ns_per_op": 331.45
+    "ns_per_op": 183.19
   },
   {
     "suite": "Pause Resume",
     "operation": "pause + resume cycle",
-    "total_ns": 4908000,
+    "total_ns": 6542766,
     "iterations": 10000,
-    "ns_per_op": 490.80
+    "ns_per_op": 654.28
   },
   {
     "suite": "Pause Resume",
     "operation": "pause + resume cycle",
-    "total_ns": 23057230,
+    "total_ns": 69977917,
     "iterations": 100000,
-    "ns_per_op": 230.57
+    "ns_per_op": 699.78
   },
   {
     "suite": "Pause Resume",
     "operation": "pause + resume cycle",
-    "total_ns": 256292846,
+    "total_ns": 703336099,
     "iterations": 1000000,
-    "ns_per_op": 256.29
+    "ns_per_op": 703.34
   }
 ]
