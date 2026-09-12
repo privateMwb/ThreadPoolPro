@@ -199,27 +199,24 @@ inline void printMethods(const std::string& versionFilter = "") {
 
         // ── Unboxed letter tree ──
 
-        // Align the [ID] column across this version's whole tree, not
-        // just per letter -- same approach as the custom suite's own
-        // [C1]/[I2]-style ids.
-        std::size_t idWidth = 0;
-        for (const auto& [letter, members] : groups)
-            idWidth = std::max(idWidth, std::to_string(members.size()).size() + 1);
-
         for (std::size_t i = 0; i < groups.size(); ++i) {
             const auto& [letter, members] = groups[i];
 
             std::cout << GREEN << letter << RESET << " " << DARK_GRAY << "(" << members.size()
                       << ")" << RESET << "\n";
 
+            // Align the [ID] column within this letter group only --
+            // e.g. group A's ids stay at their own natural width even
+            // though group W (12 members) needs a wider one.
+            const std::size_t idWidth = std::to_string(members.size()).size() + 1;
+
             for (std::size_t j = 0; j < members.size(); ++j) {
                 bool lastMember = (j + 1 == members.size());
                 std::string childBranch = lastMember ? "└─ " : "├─ ";
                 std::string id = std::string(1, letter) + std::to_string(j + 1);
 
-                std::cout << CYAN << childBranch << RESET << GREEN << "[" << std::left
-                          << std::setw(static_cast<int>(idWidth)) << id << "]" << RESET << "  "
-                          << WHITE << members[j] << RESET << "\n";
+                std::cout << CYAN << childBranch << RESET << GREEN << "[" << id << "]" << RESET
+                          << "  " << WHITE << members[j] << RESET << "\n";
             }
 
             if (i + 1 != groups.size())
