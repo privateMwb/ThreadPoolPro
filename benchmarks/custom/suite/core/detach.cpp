@@ -60,14 +60,12 @@ static void bench_detach_batch_drain() {
         arena.execute([&] { tg.wait(); });
     };
 
-    BENCH("detach batch + drain (64 tasks)", ptp, otbb);
+    BENCH("detach batch (64)", ptp, otbb);
 }
 
 // Executes all detach benchmark cases.
 static void run_benchmarks() {
     bench_detach_single();
-    std::cout << "\n";
-
     bench_detach_batch_drain();
 }
 

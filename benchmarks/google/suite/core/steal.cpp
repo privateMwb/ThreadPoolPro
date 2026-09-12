@@ -29,7 +29,7 @@ static void BM_push_pop_uncontended(benchmark::State& state) {
         benchmark::DoNotOptimize(task.has_value());
     }
 }
-BENCHMARK(BM_push_pop_uncontended)->Name("pushBottom + popBottom (uncontended)");
+BENCHMARK(BM_push_pop_uncontended)->Name("push/pop");
 
 // Measures pushBottom() while a second thread continuously steals —
 // the contended cross-thread path.
@@ -55,4 +55,4 @@ static void BM_steal_contended(benchmark::State& state) {
     thief.join();
     benchmark::DoNotOptimize(stolen.load());
 }
-BENCHMARK(BM_steal_contended)->Name("pushBottom (contended by steal)")->UseRealTime();
+BENCHMARK(BM_steal_contended)->Name("push (steal)")->UseRealTime();

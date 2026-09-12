@@ -25,7 +25,7 @@ static void BM_move_small(benchmark::State& state) {
         Task moved(std::move(source));
     }
 }
-BENCHMARK(BM_move_small)->Name("move construct (SBO)");
+BENCHMARK(BM_move_small)->Name("move (SBO)");
 
 // Measures move-constructing a Task whose callable was heap-allocated.
 static void BM_move_large(benchmark::State& state) {
@@ -36,4 +36,4 @@ static void BM_move_large(benchmark::State& state) {
         Task moved(std::move(source));
     }
 }
-BENCHMARK(BM_move_large)->Name("move construct (heap)");
+BENCHMARK(BM_move_large)->Name("move (heap)");

@@ -40,7 +40,7 @@ static void bench_uncaught_exception() {
 
     auto ptp = [&] { pool.detach([] { throw std::runtime_error("bench"); }); };
 
-    BENCH_SOLO("detach (uncaught exception)", ptp);
+    BENCH_SOLO("detach, uncaught", ptp);
 
     pool.waitIdle();
 
@@ -82,7 +82,7 @@ static void bench_caught_exception() {
         });
     };
 
-    BENCH("detach (caught exception)", ptp, otbb);
+    BENCH("detach, caught", ptp, otbb);
 
     pool.waitIdle();
     arena.execute([&] { tg.wait(); });
@@ -94,8 +94,6 @@ static void bench_caught_exception() {
 // Executes all exception-path benchmark cases.
 static void run_benchmarks() {
     bench_uncaught_exception();
-    std::cout << "\n";
-
     bench_caught_exception();
 }
 

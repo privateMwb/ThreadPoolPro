@@ -31,7 +31,7 @@ static void BM_detach_single_ptp(benchmark::State& state) {
         pool.detach([] {});
     }
 }
-BENCHMARK(BM_detach_single_ptp)->Name("detach single task (PulseThreadPool)")->UseRealTime();
+BENCHMARK(BM_detach_single_ptp)->Name("detach 1 (PTP)")->UseRealTime();
 
 static void BM_detach_single_otbb(benchmark::State& state) {
     tbb::task_arena arena(kWorkers);
@@ -44,7 +44,7 @@ static void BM_detach_single_otbb(benchmark::State& state) {
 
     arena.execute([&] { tg.wait(); });
 }
-BENCHMARK(BM_detach_single_otbb)->Name("detach single task (oneTBB)")->UseRealTime();
+BENCHMARK(BM_detach_single_otbb)->Name("detach 1 (TBB)")->UseRealTime();
 
 // Measures submitting a batch of tasks, then waiting for the whole
 // batch to finish — the realistic way detach()/run() are actually used.
@@ -58,9 +58,7 @@ static void BM_detach_batch_drain_ptp(benchmark::State& state) {
         pool.waitIdle();
     }
 }
-BENCHMARK(BM_detach_batch_drain_ptp)
-    ->Name("detach batch + drain (64 tasks) (PulseThreadPool)")
-    ->UseRealTime();
+BENCHMARK(BM_detach_batch_drain_ptp)->Name("detach batch64 (PTP)")->UseRealTime();
 
 static void BM_detach_batch_drain_otbb(benchmark::State& state) {
     tbb::task_arena arena(kWorkers);
@@ -75,6 +73,4 @@ static void BM_detach_batch_drain_otbb(benchmark::State& state) {
         arena.execute([&] { tg.wait(); });
     }
 }
-BENCHMARK(BM_detach_batch_drain_otbb)
-    ->Name("detach batch + drain (64 tasks) (oneTBB)")
-    ->UseRealTime();
+BENCHMARK(BM_detach_batch_drain_otbb)->Name("detach batch64 (TBB)")->UseRealTime();

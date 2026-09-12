@@ -32,7 +32,7 @@ static void BM_task_counts(benchmark::State& state) {
 
     pool.shutdown(ThreadPool::ShutdownMode::DiscardTasks);
 }
-BENCHMARK(BM_task_counts)->Name("active/queued counts");
+BENCHMARK(BM_task_counts)->Name("active/queued");
 
 // Measures idleThreadCount() on a pool with no work queued.
 static void BM_idle_count(benchmark::State& state) {
@@ -42,7 +42,7 @@ static void BM_idle_count(benchmark::State& state) {
         benchmark::DoNotOptimize(pool.idleThreadCount());
     }
 }
-BENCHMARK(BM_idle_count)->Name("idle thread count");
+BENCHMARK(BM_idle_count)->Name("idle count");
 
 // Measures the cheap boolean state queries together.
 static void BM_bool_state(benchmark::State& state) {
@@ -54,4 +54,4 @@ static void BM_bool_state(benchmark::State& state) {
         benchmark::DoNotOptimize(pool.empty());
     }
 }
-BENCHMARK(BM_bool_state)->Name("paused/stopped/empty");
+BENCHMARK(BM_bool_state)->Name("paused/stopped");

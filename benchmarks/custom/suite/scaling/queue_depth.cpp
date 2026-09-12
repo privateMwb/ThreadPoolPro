@@ -25,7 +25,7 @@ static void bench_push_at_backlog(std::size_t backlog) {
 
     auto ptp = [&] { queue.pushBottom(Task([] {})); };
 
-    std::string label = "pushBottom at backlog " + std::to_string(backlog);
+    std::string label = "push at " + std::to_string(backlog);
     BENCH_SOLO(label.c_str(), ptp);
 
     while (queue.popBottom().has_value()) {
@@ -36,7 +36,6 @@ static void bench_push_at_backlog(std::size_t backlog) {
 static void run_benchmarks() {
     for (std::size_t backlog : {std::size_t{0}, std::size_t{1024}, std::size_t{65536}}) {
         bench_push_at_backlog(backlog);
-        std::cout << "\n";
     }
 }
 

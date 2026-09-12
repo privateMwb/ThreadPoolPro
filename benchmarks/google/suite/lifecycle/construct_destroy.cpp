@@ -26,7 +26,7 @@ static void BM_construct_destroy_ptp(benchmark::State& state) {
         ThreadPool pool(kWorkers);
     }
 }
-BENCHMARK(BM_construct_destroy_ptp)->Name("construct + destroy (PulseThreadPool)")->UseRealTime();
+BENCHMARK(BM_construct_destroy_ptp)->Name("ctor/dtor (PTP)")->UseRealTime();
 
 static void BM_construct_destroy_otbb(benchmark::State& state) {
     for (auto _ : state) {
@@ -34,4 +34,4 @@ static void BM_construct_destroy_otbb(benchmark::State& state) {
         arena.initialize();
     }
 }
-BENCHMARK(BM_construct_destroy_otbb)->Name("construct + destroy (oneTBB)")->UseRealTime();
+BENCHMARK(BM_construct_destroy_otbb)->Name("ctor/dtor (TBB)")->UseRealTime();

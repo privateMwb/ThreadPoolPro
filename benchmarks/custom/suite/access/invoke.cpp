@@ -47,8 +47,6 @@ static void bench_invoke_large() {
 // Executes all invocation benchmark cases.
 static void run_benchmarks() {
     bench_invoke_small();
-    std::cout << "\n";
-
     bench_invoke_large();
 }
 

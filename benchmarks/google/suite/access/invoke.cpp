@@ -28,7 +28,7 @@ static void BM_invoke_small(benchmark::State& state) {
 
     benchmark::DoNotOptimize(counter);
 }
-BENCHMARK(BM_invoke_small)->Name("invoke small (SBO)");
+BENCHMARK(BM_invoke_small)->Name("invoke small");
 
 // Measures operator() on a Task whose callable is too large for inline
 // storage and was heap-allocated at construction.
@@ -46,4 +46,4 @@ static void BM_invoke_large(benchmark::State& state) {
 
     benchmark::DoNotOptimize(counter);
 }
-BENCHMARK(BM_invoke_large)->Name("invoke large (heap)");
+BENCHMARK(BM_invoke_large)->Name("invoke large");

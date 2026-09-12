@@ -26,4 +26,4 @@ static void BM_pause_resume_cycle(benchmark::State& state) {
         pool.resume();
     }
 }
-BENCHMARK(BM_pause_resume_cycle)->Name("pause + resume cycle")->UseRealTime();
+BENCHMARK(BM_pause_resume_cycle)->Name("pause/resume")->UseRealTime();

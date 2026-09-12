@@ -41,8 +41,6 @@ static void bench_move_large() {
 // Executes all move-semantics benchmark cases.
 static void run_benchmarks() {
     bench_move_small();
-    std::cout << "\n";
-
     bench_move_large();
 }
 
