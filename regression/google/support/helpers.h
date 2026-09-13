@@ -177,13 +177,13 @@ inline std::vector<BenchmarkResult> loadResults(const std::string& file) {
 
 // Returns the "method" portion of a benchmark name, for grouping rows
 // that measure the same operation across different library
-// implementations (e.g. "At_VectorPro" and "At_StdVector" both group
-// as "At") -- this tool's equivalent of the custom suite's explicit
+// implementations (e.g. "Insert_Impl" and "Insert_Std" both group
+// as "Insert") -- this tool's equivalent of the custom suite's explicit
 // "suite" field, used the same way to re-header printRegression()'s
 // table each time the group changes. Strips, in order:
 //   1. any trailing "/<args>" Google Benchmark parameterization, if
-//      present (e.g. "At_VectorPro/1000" -> "At_VectorPro"), then
-//   2. the last "_<Library>" segment (e.g. "At_VectorPro" -> "At").
+//      present (e.g. "Insert_Impl/1000" -> "Insert_Impl"), then
+//   2. the last "_<Library>" segment (e.g. "Insert_Impl" -> "Insert").
 // A name with neither separator is returned unchanged.
 inline std::string baseName(const std::string& name) {
     std::string base = name;
@@ -309,7 +309,7 @@ inline bool looksLikeMethodId(const std::string& s) {
 // Resolves a `methods`-listing ID (e.g. "U1") against one baseline
 // snapshot's own letter-grouped benchmark-name list -- the same
 // grouping printMethods() itself builds -- and returns the actual
-// benchmark name it refers to (e.g. "At_VectorPro"). Case-insensitive
+// benchmark name it refers to (e.g. "Insert_Impl"). Case-insensitive
 // on the letter. Throws if the letter has no group, or the index is
 // out of range for that group; only call this once looksLikeMethodId()
 // has already confirmed the argument's shape.
@@ -561,7 +561,7 @@ inline std::string bar(double ns, double maxNs) {
 }
 
 // Prints the boxed comparison-table header for one baseName() group
-// (e.g. "At", grouping "At_VectorPro" and "At_StdVector" together).
+// (e.g. "Insert", grouping "Insert_Impl" and "Insert_Std" together).
 // Unlike the custom suite there's no ITER_W column, since Google
 // Benchmark has no fixed iteration tiers to label.
 inline void setHeader(std::string_view header) {

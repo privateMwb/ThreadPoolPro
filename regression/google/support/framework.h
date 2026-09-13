@@ -30,8 +30,8 @@ inline void setProjectLabels() {
 // against current results for each entry, grouped and re-headered by
 // baseName() -- this tool's equivalent of the custom suite's explicit
 // "suite" grouping, since Google Benchmark names carry no such field
-// of their own (e.g. "At_VectorPro" and "At_StdVector" both re-header
-// under "At").
+// of their own (e.g. "Insert_Impl" and "Insert_Std" both re-header
+// under "Insert").
 inline void printRegression(const std::vector<BenchmarkResult>& baseline,
                             const std::vector<BenchmarkResult>& current) {
     std::string currentGroup = " ";
