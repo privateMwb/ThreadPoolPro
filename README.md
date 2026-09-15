@@ -93,6 +93,7 @@
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
+- [Security](#security)
 - [License](#license)
 
 <br>
@@ -391,6 +392,14 @@ Issues and pull requests are welcome. Before submitting a PR:
 See [CHANGELOG.md](CHANGELOG.md) for a curated, per-release summary of
 changes, or the [Releases](https://github.com/privateMwb/ThreadPoolPro/releases)
 page for the full release notes.
+
+<div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
+
+## <a id="security"></a>🔒 Security
+
+See [SECURITY.md](SECURITY.md) for the supported versions, how to report
+a vulnerability (including privately, via GitHub Security Advisories),
+and the disclosure timeline.
 
 <div align="right"><a href="#-table-of-contents"><img src=".github/assets/back-to-top.svg" alt="Back to top" height="28"></a></div>
 
