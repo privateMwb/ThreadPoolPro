@@ -28,7 +28,7 @@
 
 using namespace ThreadPoolPro::Detail;
 
-static void construct_and_immediately_assign_is_race_free() {
+static void construct_assign_race_free() {
     constexpr int iterations = 200;
 
     for (int i = 0; i < iterations; ++i) {
@@ -39,7 +39,7 @@ static void construct_and_immediately_assign_is_race_free() {
 
 // Executes all MarketThread construction-order regression test cases.
 static void run_tests() {
-    RUN(construct_and_immediately_assign_is_race_free);
+    RUN(construct_assign_race_free);
 }
 
 REGISTER_TEST_SUITE();

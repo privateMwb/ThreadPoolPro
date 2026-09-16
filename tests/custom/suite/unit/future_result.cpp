@@ -54,7 +54,7 @@ static void void_specialization_completes() {
 // available. A short producer-side delay ensures wait() runs long
 // enough to fall through its spin tier into the yield and park tiers,
 // rather than always resolving on the very first ready_ check.
-static void get_blocks_until_published_from_another_thread() {
+static void blocks_until_published() {
     auto* state = new ResultState<int>();
 
     std::thread producer([state]() {
@@ -70,7 +70,7 @@ static void get_blocks_until_published_from_another_thread() {
 }
 
 // Same as above, for the void specialization's wait() path.
-static void void_get_blocks_until_published_from_another_thread() {
+static void void_blocks_until_published() {
     auto* state = new ResultState<void>();
 
     std::thread producer([state]() {
@@ -90,7 +90,7 @@ static void void_get_blocks_until_published_from_another_thread() {
 // enqueue() tests elsewhere in the suite) — those tests only ever
 // exercise the success path, so this is the only place that publishes
 // an exception through a ResultState<std::thread::id>.
-static void get_rethrows_published_exception_thread_id() {
+static void rethrows_published_exception() {
     auto* state = new ResultState<std::thread::id>();
     state->setException(std::make_exception_ptr(std::runtime_error("boom")));
     state->release();
@@ -104,9 +104,9 @@ static void run_tests() {
     RUN(get_rethrows_published_exception);
     RUN(get_on_empty_future_throws);
     RUN(void_specialization_completes);
-    RUN(get_blocks_until_published_from_another_thread);
-    RUN(void_get_blocks_until_published_from_another_thread);
-    RUN(get_rethrows_published_exception_thread_id);
+    RUN(blocks_until_published);
+    RUN(void_blocks_until_published);
+    RUN(rethrows_published_exception);
 }
 
 REGISTER_TEST_SUITE();
